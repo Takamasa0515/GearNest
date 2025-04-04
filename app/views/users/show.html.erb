@@ -1,10 +1,49 @@
-<h2>Users</h2>
-<%= link_to "home", root_path %>
-<p>
-    <strong>ユーザー名</strong>
-    <%= @user.name %>
-</p>
-<p>
-    <strong>e-mail</strong>
-    <%= @user.email %>
-</p>
+<div class="min-h-screen bg-white">
+  <!-- ヘッダー画像セクション -->
+  <div class="relative h-48 sm:h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+    <div class="absolute inset-0 bg-opacity-40"></div>
+  </div>
+
+  <!-- プロフィールコンテンツ -->
+  <div class="max-w-10xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-white rounded-lg overflow-hidden">
+      <!-- プロフィールヘッダー -->
+      <div class="px-4 sm:px-6 py-2 sm:py-2">
+        <div class="flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
+          <div class="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6">
+            <div class="h-24 w-24 sm:h-32 sm:w-32 border-4 border-white bg-white flex items-center justify-center overflow-hidden rounded-full shadow-lg">
+              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" 
+                   alt="プロフィール画像" 
+                   class="h-full w-full object-cover">
+            </div>
+            <div class="text-center sm:text-left">
+              <h1 class="text-2xl sm:text-3xl font-bold text-gray-900"><%= @user.name %></h1>
+              <div class="flex items-center justify-center sm:justify-start space-x-6 mt-2">
+                <div class="flex items-center space-x-2">
+                  <span class="text-sm sm:text-base text-gray-600">フォロー</span>
+                  <span class="text-sm sm:text-base font-semibold text-gray-900">10</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <span class="text-sm sm:text-base text-gray-600">フォロワー</span>
+                  <span class="text-sm sm:text-base font-semibold text-gray-900">10</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sm:w-auto">
+            <button class="sm:w-auto px-6 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition duration-300">
+              プロフィールを編集
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 自己紹介セクション -->
+      <div class="border-b border-gray-200 px-4 sm:px-6 py-2 sm:py-2">
+        <p class="text-xs sm:text-xs text-gray-600 leading-relaxed">
+          ここに自己紹介文が入ります。
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
