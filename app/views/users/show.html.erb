@@ -1,7 +1,13 @@
 <div class="min-h-screen bg-gray-50">
   <!-- ヘッダー画像セクション -->
-  <div class="relative h-48 sm:h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
-    <div class="absolute inset-0 bg-opacity-40"></div>
+  <div class="relative h-48 sm:h-64 bg-cover bg-center group ">
+    <% if @user.header_image.attached? %>
+      <%= image_tag @user.header_image, class: "w-full h-full object-cover" %>
+    <% else %>
+      <div class="relative h-48 sm:h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+        <div class="absolute inset-0 bg-opacity-40"></div>
+      </div>
+    <% end %>
   </div>
   <!-- プロフィールコンテンツ -->
   <div class="content-container">
@@ -12,9 +18,13 @@
           <div class="flex flex-col sm:flex-row sm:items-center justify-between space-y-4 sm:space-y-0">
             <div class="flex flex-row items-center space-x-4 sm:space-x-6">
               <div class="h-25 w-25 sm:h-32 sm:w-32 border-4 border-white bg-white flex items-center justify-center overflow-hidden rounded-full shadow-lg">
-                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                <% if @user.avatar.attached? %>
+                  <%= image_tag @user.avatar, class: "h-full w-full object-cover" %>
+                <% else %>
+                  <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                     alt="プロフィール画像"
                     class="h-full w-full object-cover">
+                <% end %>
               </div>
               <div class="flex flex-col">
                 <h1 class="text-2xl sm:text-4xl font-bold text-gray-900"><%= @user.name %></h1>
@@ -53,7 +63,7 @@
         <!-- 自己紹介セクション -->
         <div class="py-2 sm:py-2">
           <p class="text-xs sm:text-xs text-gray-600 leading-relaxed">
-            ここに自己紹介文が入ります。
+            <%= @user.introduction %>
           </p>
         </div>
       </div>
