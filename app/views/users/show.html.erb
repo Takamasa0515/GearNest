@@ -18,22 +18,25 @@
                     class="h-full w-full object-cover">
               </div>
               <div class="text-center sm:text-left">
-                <h1 class="text-2xl sm:text-3xl font-bold text-gray-900"><%= @user.name %></h1>
+                <h1 class="text-4xl sm:text-4xl font-bold text-gray-900"><%= @user.name %></h1>
                 <div class="flex items-center justify-center sm:justify-start space-x-6 mt-2">
                   <div class="flex items-center space-x-2">
                     <span class="text-sm sm:text-base text-gray-600">フォロー</span>
-                    <span class="text-sm sm:text-base font-semibold text-gray-900">10</span>
+                    <span class="text-sm sm:text-base font-semibold text-gray-600">10</span>
                   </div>
                   <div class="flex items-center space-x-2">
                     <span class="text-sm sm:text-base text-gray-600">フォロワー</span>
-                    <span class="text-sm sm:text-base font-semibold text-gray-900">10</span>
+                    <span class="text-sm sm:text-base font-semibold text-gray-600">10</span>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="sm:w-auto">
-              <button class="sm:w-auto px-6 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition duration-300">
+            <div class="flex flex-col gap-2 sm:w-auto">
+              <button class="text-xs sm:w-auto px-6 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition duration-300">
                 プロフィールを編集
+              </button>
+              <button class="text-xs sm:w-auto px-6 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition duration-300">
+                プロフィールリンクをコピー
               </button>
             </div>
           </div>
