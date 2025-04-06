@@ -1,0 +1,55 @@
+<div class="min-h-screen bg-gray-50">
+  <%= form_for(current_user, url: users_account_path, html: { method: :put }) do |f| %>
+    <div class="max-w-10xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="bg-gray-50 border border-gray-300 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">メールアドレス・パスワードの変更・アカウントの削除</h2>
+        <%= render "devise/shared/error_messages", resource: current_user %>
+        <div class="space-y-6">
+          <div>
+            <%= f.label :email, "新しいメールアドレス", class: "block text-sm font-medium text-gray-700" %>
+            <div class="mt-1">
+              <%= f.email_field :email, class: "p-2 block w-full sm:text-sm border border-gray-300 rounded-md focus:ring-gray-500 focus:border-gray-500 focus:outline-none transition duration-200 ease-in-out transform focus:scale-[1.02]" %>
+            </div>
+          </div>
+
+          <div>
+            <%= f.label :password, "新しいパスワード（空欄で変更なし）", class: "block text-sm font-medium text-gray-700" %>
+            <div class="mt-1">
+              <%= f.password_field :password, class: "p-2 block w-full sm:text-sm border border-gray-300 rounded-md focus:ring-gray-500 focus:border-gray-500 focus:outline-none transition duration-200 ease-in-out transform focus:scale-[1.02]" %>
+            </div>
+          </div>
+
+          <div>
+            <%= f.label :password_confirmation, "パスワード確認", class: "block text-sm font-medium text-gray-700" %>
+            <div class="mt-1">
+              <%= f.password_field :password_confirmation, class: "p-2 block w-full sm:text-sm border border-gray-300 rounded-md focus:ring-gray-500 focus:border-gray-500 focus:outline-none transition duration-200 ease-in-out transform focus:scale-[1.02]" %>
+            </div>
+          </div>
+
+          <div>
+            <%= f.label :current_password, "現在のパスワード（必須）", class: "block text-sm font-medium text-gray-700" %>
+            <div class="mt-1">
+              <%= f.password_field :current_password, class: "p-2 block w-full sm:text-sm border border-gray-300 rounded-md focus:ring-gray-500 focus:border-gray-500 focus:outline-none transition duration-200 ease-in-out transform focus:scale-[1.02]" %>
+            </div>
+          </div>
+
+          <div class="mt-6 flex flex-col sm:flex-row gap-4">
+            <%= f.submit "更新する", class: "inline-flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-700 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500" %>
+            <%= link_to "キャンセル", user_path(current_user), class: "inline-flex justify-center py-2 px-4 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+          </div>
+
+          <div class="mt-8 pt-6 border-t border-gray-200">
+            <h3 class="text-lg font-medium text-gray-900">アカウントの削除</h3>
+            <p class="mt-1 text-sm text-gray-500">アカウントを削除すると、すべてのデータが完全に削除されます。この操作は取り消せません。</p>
+            <div class="mt-4">
+              <%= button_to "アカウントを削除する", registration_path(current_user),
+                  data: { confirm: "本当にアカウントを削除しますか？", turbo_confirm: "本当にアカウントを削除しますか？" },
+                  method: :delete,
+                  class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
