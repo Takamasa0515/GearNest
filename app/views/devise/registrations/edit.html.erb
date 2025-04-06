@@ -61,7 +61,10 @@
 
           <!-- ユーザー名 -->
           <div>
-            <%= f.label :name, "ユーザー名(必須)", class: "block text-sm font-medium text-gray-700" %>
+            <div class="flex items-center space-x-2">
+              <%= f.label :name, "ユーザー名(必須)", class: "block text-sm font-medium text-gray-700" %>
+              <%= render "shared/devise_error_message", resource: f.object, field: :name %>
+            </div>
             <div class="mt-1">
               <%= f.text_field :name, autofocus: true, class: "p-2 block w-full sm:text-sm border border-gray-300 rounded-md focus:ring-gray-500 focus:border-gray-500 focus:outline-none transition duration-200 ease-in-out transform focus:scale-[1.02]" %>
             </div>
@@ -69,7 +72,7 @@
 
           <!-- 自己紹介 -->
           <div>
-            <%= f.label :introduction, "自己紹介", class: "block text-sm font-medium text-gray-700" %>
+            <%= f.label :introduction, class: "block text-sm font-medium text-gray-700" %>
             <div class="mt-1">
               <%= f.text_area :introduction, class: "p-2 block w-full sm:text-sm border border-gray-300 rounded-md focus:ring-gray-500 focus:border-gray-500 focus:outline-none transition duration-200 ease-in-out transform focus:scale-[1.02]" %>
             </div>
