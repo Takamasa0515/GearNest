@@ -1,43 +1,98 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="min-h-screen bg-gray-50">
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "space-y-6" }) do |f| %>
+    <!-- ヘッダー画像セクション -->
+    <div class="relative h-40 sm:h-80 bg-cover bg-center group cursor-pointer">
+      <!-- ラベルで file_field を覆う -->
+      <%= f.label :header_image, class: "absolute inset-0 z-10" do %>
+        <!-- 実際の画像 -->
+        <% if resource.header_image.attached? %>
+          <div class="header-preview w-full h-full bg-cover bg-center" style="background-image: url('<%= url_for(resource.header_image) %>')"></div>
+        <% else %>
+          <div class="header-preview w-full h-full bg-cover bg-center"
+              style="background-image: url('https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+          </div>
+        <% end %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+        <!-- アップロード入力（非表示） -->
+        <%= f.file_field :header_image, class: "hidden", accept: "image/*" %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+        <!-- ホバー時に表示されるオーバーレイ -->
+        <div class="absolute inset-0 backdrop-blur-sm backdrop-brightness-75 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out">
+          <span class="px-4 py-2 rounded-lg text-white font-medium text-lg backdrop-blur-sm">
+            クリックしてヘッダー画像を変更
+          </span>
+        </div>
+      <% end %>
+    </div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <!-- 編集フォーム -->
+    <div class="max-w-10xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="bg-gray-50 border border-gray-300 rounded-lg p-6">
+        <div class="space-y-6">
+          <!-- プロフィール画像 -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700">プロフィール画像</label>
+            <div class="mt-1 flex items-center space-x-4">
+              <div class="group relative h-20 w-20 rounded-full overflow-hidden border border-gray-300">
+                <% if resource.avatar.attached? %>
+                  <%= image_tag resource.avatar, class: "avatar-preview h-full w-full object-cover" %>
+                <% else %>
+                  <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                      alt="プロフィール画像"
+                      class="avatar-preview h-full w-full object-cover">
+                <% end %>
+                <!-- ホバー時のオーバーレイ -->
+                <label for="user_avatar" class="absolute inset-0 backdrop-blur-sm backdrop-brightness-75 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out">
+                  <span class="text-white text-xs font-medium">変更</span>
+                </label>
+              </div>
+              <div class="flex-1">
+                <%= f.file_field :avatar, class: "hidden", accept: "image/*" %>
+                <p class="text-xs text-gray-500">
+                  クリックして画像を選択<br>
+                  推奨サイズ: 500x500px以上<br>
+                  形式: JPG, PNG
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ユーザー名 -->
+          <div>
+            <div class="flex items-center space-x-2">
+              <%= f.label :name, "ユーザー名(必須)", class: "block text-sm font-medium text-gray-700" %>
+              <%= render "shared/devise_error_message", resource: f.object, field: :name %>
+            </div>
+            <div class="mt-1">
+              <%= f.text_field :name, autofocus: true, class: "p-2 block w-full sm:text-sm border border-gray-300 rounded-md focus:ring-gray-500 focus:border-gray-500 focus:outline-none transition duration-200 ease-in-out transform focus:scale-[1.02]" %>
+            </div>
+          </div>
+
+          <!-- 自己紹介 -->
+          <div>
+            <%= f.label :introduction, class: "block text-sm font-medium text-gray-700" %>
+            <div class="mt-1">
+              <%= f.text_area :introduction, class: "p-2 block w-full sm:text-sm border border-gray-300 rounded-md focus:ring-gray-500 focus:border-gray-500 focus:outline-none transition duration-200 ease-in-out transform focus:scale-[1.02]" %>
+            </div>
+          </div>
+
+          <!-- ボタン -->
+          <div class="mt-6 flex flex-col sm:flex-row gap-4">
+            <%= f.submit "更新する", class: "inline-flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-700 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500" %>
+            <%= link_to "キャンセル", user_path(current_user), class: "inline-flex justify-center py-2 px-4 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+          </div>
+
+          <!-- その他のアカウント設定セクション -->
+          <div class="mt-8 pt-6 border-t border-gray-200">
+            <h3 class="text-lg font-medium text-gray-900">その他の設定</h3>
+            <p class="mt-1 text-sm text-gray-500">
+              メールアドレス・パスワード・アカウント削除に関する設定は<%= link_to "こちら", edit_users_account_path, class: "text-blue-500 hover:text-blue-600" %>から。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
-
-<%= link_to "Back", :back %>
+</div>
