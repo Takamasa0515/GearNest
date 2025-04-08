@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :user_devices
+  has_many :user_devices, dependent: :destroy
   has_many :devices, through: :user_devices
 
   devise :database_authenticatable, :registerable,

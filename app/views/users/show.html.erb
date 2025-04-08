@@ -87,14 +87,30 @@
       </div>
     </div>
     <!-- 各デバイス登録セクション -->
+
+    <h2>使用しているデバイス</h2>
+    <% if @user_devices.any? %>
+      <ul>
+        <% @user_devices.each do |user_device| %>
+          <li><%= user_device.device.name %> - <%= user_device.device.category %></li>
+          <% if user_device.device.image.attached? %>
+            <%= image_tag user_device.device.image, class: "w-10 h-10" %>
+          <% else %>
+            <%= image_tag "https://m.media-amazon.com/images/I/61Hzl2blY0L._AC_SY450_.jpg", class: "w-10 h-10" %>
+          <% end %>
+        <% end %>
+      </ul>
+      <p>現在使用しているデバイスはありません。</p>
+    <% end %>
+
+    <h2>デバイス登録</h2>
+
+
     <div class="max-w-10xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
       <h2 class="text-2xl font-bold text-gray-900 py-2 sm:py-2 border-t border-gray-500">Mouse</h2>
+      <button class="bg-blue-500 text-white px-4 py-2 rounded-md", id="modalOpen">デバイスを追加</button>
+      <%= render "shared/add_device", category: "mouse" %>
       <div class="flex overflow-x-auto overflow-y-hidden gap-2 sm:gap-4 flex-nowrap h-auto">
-        <%= render 'shared/test_reviewdevise_card' %>
-        <%= render 'shared/test_reviewdevise_card' %>
-        <%= render 'shared/test_reviewdevise_card' %>
-        <%= render 'shared/test_reviewdevise_card' %>
-        <%= render 'shared/test_reviewdevise_card' %>
         <%= render 'shared/test_reviewdevise_card' %>
       </div>
     </div>

@@ -1,0 +1,68 @@
+<div class="hidden fixed left-0 top-0 h-full w-full bg-gray-700/50 z-10", id="modalSelf">
+  <div class="modal-content bg-gray-50 mx-30 mt-50">
+    <div class="modal-header bg-gray-50 py-[3px] px-[15px] flex justify-between">
+      <h1 class="my-[10px]"><%= category %>を追加</h1>
+      <span class="modalClose text-xl cursor-pointer">&times;</span>
+    </div>
+    <%= form_with url: user_add_devices_path(@user), method: :post do |f| %>
+      <%= f.select :device_id, Device.where(category: category).pluck(:name, :id) %>
+      <%= f.submit "追加" %>
+    <% end %>
+    <div class="modal-body py-[15px] px-[25px]">
+      <h2>未登録のデバイスはこちらから登録</h2>
+      <%= form_with model: Device.new do |f| %>
+        <div>
+          <div class="flex items-center space-x-2">
+            <%= f.label :name, "デバイス名(必須)", class: "block text-sm font-medium text-gray-700" %>
+            <%= render "shared/devise_error_message", resource: f.object, field: :name %>
+          </div>
+          <div class="mt-1">
+            <%= f.text_field :name, autofocus: true, class: "p-2 block w-full sm:text-sm border border-gray-300 rounded-md focus:ring-gray-500 focus:border-gray-500 focus:outline-none transition duration-200 ease-in-out transform focus:scale-[1.02]" %>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-center space-x-2">
+            <%= f.label :category, "カテゴリ", class: "block text-sm font-medium text-gray-700" %>
+            <%= render "shared/devise_error_message", resource: f.object, field: :category %>
+          </div>
+          <div class="mt-1">
+            <%= f.select :category, Device.categories.keys %>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-center space-x-2">
+            <%= f.label :maker, "メーカー", class: "block text-sm font-medium text-gray-700" %>
+            <%= render "shared/devise_error_message", resource: f.object, field: :maker %>
+          </div>
+          <div class="mt-1">
+            <%= f.text_field :maker, class: "p-2 block w-full sm:text-sm border border-gray-300 rounded-md focus:ring-gray-500 focus:border-gray-500 focus:outline-none transition duration-200 ease-in-out transform focus:scale-[1.02]" %>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-center space-x-2">
+            <%= f.label :price, "価格", class: "block text-sm font-medium text-gray-700" %>
+            <%= render "shared/devise_error_message", resource: f.object, field: :price %>
+          </div>
+          <div class="mt-1">
+            <%= f.text_field :price, class: "p-2 block w-full sm:text-sm border border-gray-300 rounded-md focus:ring-gray-500 focus:border-gray-500 focus:outline-none transition duration-200 ease-in-out transform focus:scale-[1.02]" %>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-center space-x-2">
+            <%= f.label :image, "画像", class: "block text-sm font-medium text-gray-700" %>
+            <%= render "shared/devise_error_message", resource: f.object, field: :image %>
+          </div>
+          <div class="mt-1">
+            <%= f.file_field :image, class: "p-2 block w-full sm:text-sm border border-gray-300 rounded-md focus:ring-gray-500 focus:border-gray-500 focus:outline-none transition duration-200 ease-in-out transform focus:scale-[1.02]"  %>
+          </div>
+        </div>
+        <%= f.submit "登録" %>
+      <% end %>
+    </div>
+    </div>
+  </div>
+</div>

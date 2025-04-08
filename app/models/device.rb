@@ -1,6 +1,7 @@
 class Device < ApplicationRecord
-  has_many :user_devices
+  has_many :user_devices, dependent: :destroy
   has_many :users, through: :user_devices
+  has_one_attached :image
 
   validates :name, presence: true
   validates :category, presence: true
